@@ -103,27 +103,36 @@ class ASTChunk():
 
     def build_chunk_ancestors(self, node_ancestors: list[ASTNode]) -> list[ASTNode]:
         '''
-        Build the class/function path to the chunk. The path is built from the ancestors of the first 
-        ASTNode in the window. We only keep the ancestors that are class or function definitions.
+        Build the class/function/module path to the chunk. The path is built from the ancestors of the first 
+        ASTNode in the window. We keep the ancestors that are class, function, or module definitions.
 
         The intuition is that we want to record where the chunk is located in the AST. This can be useful
         for downstream tasks such as code retrieval (e.g., disambiguating between different functions with the same name).
-        For each ancestor that is a class or function definition, we extract the first line in the ancestor's text.
+        For each ancestor that is a class, function, or module definition, we extract the first line in the ancestor's text.
         This simple heuristic is also commonly used in software patching tasks, such as generating GitHub issue fixes, 
         where identifying the location of a change is an essential part of the patch.
+
+        Supported constructs:
+        - Python: class_definition, function_definition
+        - Ruby: class, module, method, singleton_method, singleton_class
 
         Args:
             node_ancestors: list of tree-sitter nodes that are ancestors of the first ASTNode in the window
 
         Returns:
-            List of ancestors that are class or function definitions
+            List of ancestors that are class, function, or module definitions
         '''
         chunk_ancestors = []
 
         for node in node_ancestors:
             if any([
                 node.type == "class_definition",
-                node.type == "function_definition"
+                node.type == "function_definition",
+                node.type == "class",
+                node.type == "module",
+                node.type == "method",
+                node.type == "singleton_method",
+                node.type == "singleton_class"
             ]):
                 chunk_ancestors.append(node.text.decode("utf8").split("\n")[0])
 

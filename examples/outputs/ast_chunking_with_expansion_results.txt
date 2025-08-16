@@ -1,9 +1,10 @@
 AST Chunking Results (max 1800 non-whitespace chars per chunk)
 ================================================================================
 
-------------------------- Chunk 1 (78 lines / 1613 chars) -------------------------
+------------------------- Chunk 1 (79 lines / 1613 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
+"""
 '''
 """
 https://github.com/lucidrains/imagen-pytorch/blob/main/imagen_pytorch/trainer.py
@@ -82,9 +83,10 @@ def group_by_key_prefix(prefix, d):
     return group_dict_by_key(partial(string_begins_with, prefix), d)
 -----------------------------------------------------------------------------------
 
-------------------------- Chunk 2 (67 lines / 1671 chars) -------------------------
+------------------------- Chunk 2 (68 lines / 1671 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
+"""
 '''
 def groupby_prefix_and_trim(prefix, d):
     kwargs_with_prefix, kwargs = group_dict_by_key(partial(string_begins_with, prefix), d)
@@ -152,9 +154,10 @@ def cast_torch_tensor(fn, cast_fp16 = False):
 # gradient accumulation functions
 -----------------------------------------------------------------------------------
 
-------------------------- Chunk 3 (52 lines / 1370 chars) -------------------------
+------------------------- Chunk 3 (53 lines / 1370 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
+"""
 '''
 def split_iterable(it, split_size):
     accum = []
@@ -207,9 +210,10 @@ def split_args_and_kwargs(*args, split_size = None, **kwargs):
 # imagen trainer
 -----------------------------------------------------------------------------------
 
-------------------------- Chunk 4 (36 lines / 980 chars) -------------------------
+------------------------- Chunk 4 (37 lines / 980 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
+"""
 '''
 def imagen_sample_in_chunks(fn):
     @wraps(fn)
@@ -246,10 +250,11 @@ def restore_parts(state_dict_target, state_dict_from):
     return state_dict_target
 ----------------------------------------------------------------------------------
 
-------------------------- Chunk 5 (36 lines / 598 chars) -------------------------
+------------------------- Chunk 5 (37 lines / 598 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
+"""
+	class ImagenTrainer(nn.Module):
 '''
 class ImagenTrainer(nn.Module):
     locked = False
@@ -285,11 +290,12 @@ class ImagenTrainer(nn.Module):
     ):
 ----------------------------------------------------------------------------------
 
-------------------------- Chunk 6 (64 lines / 1785 chars) -------------------------
+------------------------- Chunk 6 (65 lines / 1785 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
-	def __init__(
+"""
+	class ImagenTrainer(nn.Module):
+		def __init__(
 '''
         super().__init__()
         assert not ImagenTrainer.locked, 'ImagenTrainer can only be initialized once per process - for the sake of distributed training, you will now have to create a separate script to train each unet (or a script that accepts unet number as an argument)'
@@ -352,11 +358,12 @@ class ImagenTrainer(nn.Module):
         self.train_dl = None
 -----------------------------------------------------------------------------------
 
-------------------------- Chunk 7 (74 lines / 1783 chars) -------------------------
+------------------------- Chunk 7 (75 lines / 1783 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
-	def __init__(
+"""
+	class ImagenTrainer(nn.Module):
+		def __init__(
 '''
         self.valid_dl_iter = None
         self.valid_dl = None
@@ -429,11 +436,12 @@ class ImagenTrainer(nn.Module):
         assert not (exists(checkpoint_path) ^ exists(checkpoint_every))
 -----------------------------------------------------------------------------------
 
-------------------------- Chunk 8 (76 lines / 1776 chars) -------------------------
+------------------------- Chunk 8 (77 lines / 1776 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
-	def __init__(
+"""
+	class ImagenTrainer(nn.Module):
+		def __init__(
 '''
         self.checkpoint_path = checkpoint_path
         self.checkpoint_every = checkpoint_every
@@ -508,10 +516,11 @@ class ImagenTrainer(nn.Module):
         self.wrap_unet(unet_number)
 -----------------------------------------------------------------------------------
 
-------------------------- Chunk 9 (73 lines / 1789 chars) -------------------------
+------------------------- Chunk 9 (74 lines / 1789 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
+"""
+	class ImagenTrainer(nn.Module):
 '''
     def wrap_unet(self, unet_number):
         if hasattr(self, 'one_unet_wrapped'):
@@ -584,10 +593,11 @@ class ImagenTrainer(nn.Module):
         return self.steps[unet_number - 1].item()
 -----------------------------------------------------------------------------------
 
-------------------------- Chunk 10 (65 lines / 1719 chars) -------------------------
+------------------------- Chunk 10 (66 lines / 1719 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
+"""
+	class ImagenTrainer(nn.Module):
 '''
     def print_untrained_unets(self):
         print_final_error = False
@@ -652,10 +662,11 @@ class ImagenTrainer(nn.Module):
         self.add_valid_dataloader(dl)
 ------------------------------------------------------------------------------------
 
-------------------------- Chunk 11 (70 lines / 1782 chars) -------------------------
+------------------------- Chunk 11 (71 lines / 1782 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
+"""
+	class ImagenTrainer(nn.Module):
 '''
     def create_train_iter(self):
         assert exists(self.train_dl), 'training dataloader has not been registered with the trainer yet'
@@ -725,10 +736,11 @@ class ImagenTrainer(nn.Module):
         self.load(last_checkpoint)
 ------------------------------------------------------------------------------------
 
-------------------------- Chunk 12 (25 lines / 473 chars) -------------------------
+------------------------- Chunk 12 (26 lines / 473 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
+"""
+	class ImagenTrainer(nn.Module):
 '''
     def save_to_checkpoint_folder(self):
         self.accelerator.wait_for_everyone()
@@ -753,10 +765,11 @@ class ImagenTrainer(nn.Module):
     # saving and loading functions
 -----------------------------------------------------------------------------------
 
-------------------------- Chunk 13 (70 lines / 1431 chars) -------------------------
+------------------------- Chunk 13 (71 lines / 1431 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
+"""
+	class ImagenTrainer(nn.Module):
 '''
     def save(
         self,
@@ -826,11 +839,12 @@ class ImagenTrainer(nn.Module):
         self.print(f'checkpoint saved to {path}')
 ------------------------------------------------------------------------------------
 
-------------------------- Chunk 14 (59 lines / 1655 chars) -------------------------
+------------------------- Chunk 14 (60 lines / 1655 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
-	def load(self, path, only_model = False, strict = True, noop_if_not_exist = False):
+"""
+	class ImagenTrainer(nn.Module):
+		def load(self, path, only_model = False, strict = True, noop_if_not_exist = False):
 '''
     def load(self, path, only_model = False, strict = True, noop_if_not_exist = False):
         fs = self.fs
@@ -888,11 +902,12 @@ class ImagenTrainer(nn.Module):
                     self.print('could not load optimizer and scaler, possibly because you have turned on mixed precision training since the last run. resuming with new optimizer and scalers')
 ------------------------------------------------------------------------------------
 
-------------------------- Chunk 15 (16 lines / 322 chars) -------------------------
+------------------------- Chunk 15 (17 lines / 322 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
-	def load(self, path, only_model = False, strict = True, noop_if_not_exist = False):
+"""
+	class ImagenTrainer(nn.Module):
+		def load(self, path, only_model = False, strict = True, noop_if_not_exist = False):
 '''
         if self.use_ema:
             assert 'ema' in loaded_obj
@@ -907,10 +922,11 @@ class ImagenTrainer(nn.Module):
         return loaded_obj
 -----------------------------------------------------------------------------------
 
-------------------------- Chunk 16 (83 lines / 1754 chars) -------------------------
+------------------------- Chunk 16 (84 lines / 1754 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
+"""
+	class ImagenTrainer(nn.Module):
 '''
     # managing ema unets and their devices
 
@@ -993,10 +1009,11 @@ class ImagenTrainer(nn.Module):
         return super().state_dict(*args, **kwargs)
 ------------------------------------------------------------------------------------
 
-------------------------- Chunk 17 (75 lines / 1745 chars) -------------------------
+------------------------- Chunk 17 (76 lines / 1745 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
+"""
+	class ImagenTrainer(nn.Module):
 '''
     def load_state_dict(self, *args, **kwargs):
         self.reset_ema_unets_all_one_device()
@@ -1071,10 +1088,11 @@ class ImagenTrainer(nn.Module):
         return output
 ------------------------------------------------------------------------------------
 
-------------------------- Chunk 18 (31 lines / 764 chars) -------------------------
+------------------------- Chunk 18 (32 lines / 764 chars) -------------------------
 '''
 imagen-pytorch/blob/main/imagen_pytorch/trainer.py
-class ImagenTrainer(nn.Module):
+"""
+	class ImagenTrainer(nn.Module):
 '''
     @partial(cast_torch_tensor, cast_fp16 = True)
     def forward(

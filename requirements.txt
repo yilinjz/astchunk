@@ -5,3 +5,4 @@ tree-sitter-python
 tree-sitter-java
 tree-sitter-c-sharp
 tree-sitter-typescript
+tree-sitter-ruby
