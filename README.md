@@ -56,12 +56,13 @@ git clone git@github.com:yilinjz/astchunk.git
 pip install -e .
 ```
 
-ASTChunk depends on [tree-sitter](https://tree-sitter.github.io/tree-sitter/) for parsing. The required language parsers are automatically installed:
+**Requirements**: Python 3.10+
+
+ASTChunk depends on [tree-sitter](https://tree-sitter.github.io/tree-sitter/) and [tree-sitter-language-pack](https://github.com/Goldziher/tree-sitter-language-pack) for parsing. All dependencies are automatically installed:
 
 ```bash
 # Core dependencies (automatically installed)
-pip install numpy pyrsistent tree-sitter
-pip install tree-sitter-python tree-sitter-java tree-sitter-c-sharp tree-sitter-typescript
+pip install numpy pyrsistent tree-sitter tree-sitter-language-pack
 ```
 
 ## Configuration Options
@@ -96,7 +97,7 @@ class Calculator:
 # Initialize the chunk builder
 configs = {
     "max_chunk_size": 100,             # Maximum non-whitespace characters per chunk
-    "language": "python",              # Supported: python, java, csharp, typescript
+    "language": "python",              # Supports 40+ languages (see below)
     "metadata_template": "default"     # Metadata format for output
 }
 chunk_builder = ASTChunkBuilder(**configs)
@@ -194,10 +195,17 @@ python_builder = ASTChunkBuilder(
     metadata_template="default"
 )
 
-# Java code  
-java_builder = ASTChunkBuilder(
+# Go code
+go_builder = ASTChunkBuilder(
     max_chunk_size=2000,
-    language="java", 
+    language="go",
+    metadata_template="default"
+)
+
+# Rust code
+rust_builder = ASTChunkBuilder(
+    max_chunk_size=1800,
+    language="rust",
     metadata_template="default"
 )
 
@@ -257,12 +265,27 @@ from astchunk.astchunk import ASTChunk
 
 ## Supported Languages
 
-| Language   | File Extensions | Status |
-|------------|----------------|---------|
-| Python     | `.py`          | ✅ Full support |
-| Java       | `.java`        | ✅ Full support |
-| C#         | `.cs`          | ✅ Full support |
-| TypeScript | `.ts`, `.tsx`  | ✅ Full support |
+ASTChunk supports **40+ programming languages** via [tree-sitter-language-pack](https://github.com/Goldziher/tree-sitter-language-pack):
+
+| Category | Languages |
+|----------|-----------|
+| **General Purpose** | Python, Java, C, C++, C#, Go, Rust, Ruby, Swift, Kotlin, Scala, Dart |
+| **Web** | JavaScript, TypeScript, HTML, CSS, PHP, Vue, Svelte |
+| **Scripting** | Bash/Shell, Lua, Perl, R |
+| **Functional** | Haskell, Elixir, Erlang, Clojure, OCaml |
+| **Systems** | Zig, Nim |
+| **Data/Config** | JSON, YAML, TOML, XML, SQL, Markdown |
+| **DevOps** | Dockerfile, Make, CMake |
+| **Scientific** | Julia, R |
+
+To list all supported languages programmatically:
+
+```python
+from astchunk import get_supported_languages
+
+print(get_supported_languages())
+# ['bash', 'c', 'c++', 'clojure', 'cmake', 'cpp', 'csharp', 'css', 'dart', ...]
+```
 
 <!-- ## Contributing
 
