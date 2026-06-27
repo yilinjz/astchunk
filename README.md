@@ -3,7 +3,7 @@
 This repository contains code for AST-based code chunking that preserves syntactic structure and semantic boundaries. ASTChunk intelligently divides source code into meaningful chunks while respecting the Abstract Syntax Tree (AST) structure, making it ideal for code analysis, documentation generation, and machine learning applications.
 
 This work is described in the following paper:  
->[cAST: Enhancing Code Retrieval-Augmented Generation with Structural Chunking via Abstract Syntax Tree](https://arxiv.org/abs/2506.15655)    
+>[cAST: Enhancing Code Retrieval-Augmented Generation with Structural Chunking via Abstract Syntax Tree](https://aclanthology.org/2025.findings-emnlp.430/)    
 > Yilin Zhang, Xinran Zhao, Zora Zhiruo Wang, Chenyang Yang, Jiayi Wei, Tongshuang Wu
 <!--
 > Conference/Journal, Year
@@ -11,11 +11,28 @@ This work is described in the following paper:
 
 Bibtex for citations:
 ```bibtex
-@misc{zhang-etal-2025-astchunk,
-      title={cAST: Enhancing Code Retrieval-Augmented Generation with Structural Chunking via Abstract Syntax Tree}, 
-      author={Yilin Zhang and Xinran Zhao and Zora Zhiruo Wang and Chenyang Yang and Jiayi Wei and Tongshuang Wu},
-      year={2025},
-      url={https://arxiv.org/abs/2506.15655}, 
+@inproceedings{zhang-etal-2025-cast,
+    title = "c{AST}: Enhancing Code Retrieval-Augmented Generation with Structural Chunking via Abstract Syntax Tree",
+    author = "Zhang, Yilin  and
+      Zhao, Xinran  and
+      Wang, Zora Zhiruo  and
+      Yang, Chenyang  and
+      Wei, Jiayi  and
+      Wu, Tongshuang",
+    editor = "Christodoulopoulos, Christos  and
+      Chakraborty, Tanmoy  and
+      Rose, Carolyn  and
+      Peng, Violet",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2025",
+    month = nov,
+    year = "2025",
+    address = "Suzhou, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.findings-emnlp.430/",
+    doi = "10.18653/v1/2025.findings-emnlp.430",
+    pages = "8106--8116",
+    ISBN = "979-8-89176-335-7",
+    abstract = "Retrieval-Augmented Generation (RAG) has become essential for large-scale code generation, grounding predictions in external code corpora to improve factuality. However, a critical yet underexplored aspect of RAG pipelines is chunking{---}the process of dividing documents into retrievable units. Existing line-based chunking heuristics often break semantic structures, splitting functions or merging unrelated code, which can degrade generation quality. We propose chunking via Abstract Syntax Trees (cAST), a structure-aware method that recursively breaks large AST nodes into smaller chunks and merges sibling nodes while respecting size limits. This approach generates self-contained, semantically coherent units across programming languages and tasks, improving performance on diverse code generation tasks, e.g., boosting Recall@5 by 4.3 points on RepoEval retrieval and Pass@1 by 2.67 points on SWE-bench generation. Our work highlights the importance of structure-aware chunking for scaling retrieval-enhanced code intelligence."
 }
 ```
 <!--
