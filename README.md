@@ -78,7 +78,7 @@ ASTChunk depends on [tree-sitter](https://tree-sitter.github.io/tree-sitter/) fo
 ```bash
 # Core dependencies (automatically installed)
 pip install numpy pyrsistent tree-sitter
-pip install tree-sitter-python tree-sitter-java tree-sitter-c-sharp tree-sitter-typescript
+pip install tree-sitter-python tree-sitter-java tree-sitter-c-sharp tree-sitter-typescript tree-sitter-ruby
 ```
 
 ## Configuration Options
@@ -113,7 +113,7 @@ class Calculator:
 # Initialize the chunk builder
 configs = {
     "max_chunk_size": 100,             # Maximum non-whitespace characters per chunk
-    "language": "python",              # Supported: python, java, csharp, typescript
+    "language": "python",              # Supported: python, java, csharp, typescript, ruby
     "metadata_template": "default"     # Metadata format for output
 }
 chunk_builder = ASTChunkBuilder(**configs)
@@ -224,6 +224,13 @@ ts_builder = ASTChunkBuilder(
     language="typescript",
     metadata_template="default"
 )
+
+# Ruby code
+ruby_builder = ASTChunkBuilder(
+    max_chunk_size=1500,
+    language="ruby",
+    metadata_template="default"
+)
 ```
 
 <!-- ### Metadata Templates
@@ -280,6 +287,7 @@ from astchunk.astchunk import ASTChunk
 | Java       | `.java`        | ✅ Full support |
 | C#         | `.cs`          | ✅ Full support |
 | TypeScript | `.ts`, `.tsx`  | ✅ Full support |
+| Ruby       | `.rb`          | ✅ Full support |
 
 <!-- ## Contributing
 
