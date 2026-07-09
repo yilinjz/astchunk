@@ -5,7 +5,7 @@ This package provides tools for intelligently chunking source code
 while preserving syntactic structure and semantic boundaries.
 """
 
-from .astchunk_builder import ASTChunkBuilder
+from .astchunk_builder import ASTChunkBuilder, get_supported_languages, LANGUAGE_MAP
 from .astchunk import ASTChunk
 from .astnode import ASTNode
 from .preprocessing import (
@@ -30,5 +30,7 @@ __all__ = [
     "get_nws_count",
     "get_nws_count_direct",
     "get_nodes_in_brange",
-    "get_largest_node_in_brange"
+    "get_largest_node_in_brange",
+    "get_supported_languages",
+    "LANGUAGE_MAP",
 ]

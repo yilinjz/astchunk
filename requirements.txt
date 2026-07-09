@@ -1,7 +1,4 @@
 numpy
 pyrsistent
-tree-sitter
-tree-sitter-python
-tree-sitter-java
-tree-sitter-c-sharp
-tree-sitter-typescript
+tree-sitter>=0.25.0
+tree-sitter-language-pack>=0.6.0

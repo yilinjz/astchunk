@@ -2,26 +2,86 @@ import numpy as np
 from typing import Generator
 
 import tree_sitter as ts
-import tree_sitter_python as tspython
-import tree_sitter_java as tsjava
-import tree_sitter_c_sharp as tscsharp
-import tree_sitter_typescript as tstypescript
+from tree_sitter_language_pack import get_parser
 import pyrsistent
 
 from astchunk.astnode import ASTNode
 from astchunk.astchunk import ASTChunk
 from astchunk.preprocessing import (
-    ByteRange, 
-    preprocess_nws_count, 
+    ByteRange,
+    preprocess_nws_count,
     get_nws_count
 )
+
+# Language name mapping for tree-sitter-language-pack
+# Maps user-friendly names to tree-sitter-language-pack language identifiers
+LANGUAGE_MAP = {
+    # Original supported languages
+    "python": "python",
+    "java": "java",
+    "csharp": "c_sharp",
+    "c_sharp": "c_sharp",
+    "typescript": "tsx",
+    "tsx": "tsx",
+    # Additional languages supported by tree-sitter-language-pack
+    "javascript": "javascript",
+    "jsx": "javascript",
+    "c": "c",
+    "cpp": "cpp",
+    "c++": "cpp",
+    "go": "go",
+    "golang": "go",
+    "rust": "rust",
+    "ruby": "ruby",
+    "php": "php",
+    "swift": "swift",
+    "kotlin": "kotlin",
+    "scala": "scala",
+    "html": "html",
+    "css": "css",
+    "json": "json",
+    "yaml": "yaml",
+    "toml": "toml",
+    "markdown": "markdown",
+    "bash": "bash",
+    "shell": "bash",
+    "sql": "sql",
+    "lua": "lua",
+    "r": "r",
+    "julia": "julia",
+    "haskell": "haskell",
+    "elixir": "elixir",
+    "erlang": "erlang",
+    "clojure": "clojure",
+    "ocaml": "ocaml",
+    "zig": "zig",
+    "nim": "nim",
+    "dart": "dart",
+    "perl": "perl",
+    "dockerfile": "dockerfile",
+    "make": "make",
+    "cmake": "cmake",
+    "xml": "xml",
+    "vue": "vue",
+    "svelte": "svelte",
+}
+
+
+def get_supported_languages() -> list[str]:
+    """
+    Get a list of all supported programming languages.
+
+    Returns:
+        A sorted list of supported language names.
+    """
+    return sorted(set(LANGUAGE_MAP.keys()))
 
 
 class ASTChunkBuilder():
     """
     Attributes:
         - max_chunk_size: Maximum size for each AST chunk, using non-whitespace character count by default.
-        - language: Supported languages, currently including python, java, c# and typescript.
+        - language: Supported languages. Now supports 40+ languages via tree-sitter-language-pack.
         - metadata_template: Type of metadata to store (e.g., start/end line number, path to file, etc).
     """
     def __init__(self, **configs):
@@ -29,16 +89,17 @@ class ASTChunkBuilder():
         self.language: str = configs['language']
         self.metadata_template: str = configs['metadata_template']
 
-        if self.language == "python":
-            self.parser = ts.Parser(ts.Language(tspython.language()))
-        elif self.language == "java":
-            self.parser = ts.Parser(ts.Language(tsjava.language()))
-        elif self.language == "csharp":
-            self.parser = ts.Parser(ts.Language(tscsharp.language()))
-        elif self.language == "typescript":
-            self.parser = ts.Parser(ts.Language(tstypescript.language_tsx()))
-        else:
-            raise ValueError(f"Unsupported Programming Language: {self.language}!")
+        # Normalize language name and get the parser
+        lang_key = self.language.lower()
+        if lang_key not in LANGUAGE_MAP:
+            available = sorted(set(LANGUAGE_MAP.keys()))
+            raise ValueError(
+                f"Unsupported Programming Language: {self.language}! "
+                f"Available languages: {', '.join(available)}"
+            )
+
+        ts_language = LANGUAGE_MAP[lang_key]
+        self.parser = get_parser(ts_language)
 
     # ------------------------------ #
     #            Step #1             #
